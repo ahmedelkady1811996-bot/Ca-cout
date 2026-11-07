@@ -313,7 +313,7 @@
         }
 
         function showWaitingScreen() {
-            const t = translations[currentLang];
+            const t = translations[currentLang]; // جلب النصوص باللغة الحالية (عربي أو إنجليزي)
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
                 <div class="text-center py-8 space-y-4">
