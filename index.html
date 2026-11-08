@@ -414,7 +414,7 @@
             <button class="btn-small" onclick="toggleLanguage()">
                 <span id="langText">English</span>
             </button>
-            <button class="btn-small btn-icon" onclick="toggleTheme()" id="themeBtn">🔆⭐🌞🌙🌛🌜☀️🌓</button>
+            <button class="btn-small btn-icon" onclick="toggleTheme()" id="themeBtn">⭐</button>
         </div>
     </header>
 
@@ -570,7 +570,7 @@
             const body = document.getElementById('bodyRoot');
             body.classList.toggle('light');
             body.classList.toggle('dark');
-            document.getElementById('themeBtn').innerText = body.classList.contains('light') ? '🔃' : '🔃';
+            document.getElementById('themeBtn').innerText = body.classList.contains('light') ? '🌙' : '⭐';
         }
 
         function switchTab(tab) {
