@@ -3,712 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eagle IDE Full Activation</title>
+    <title data-i18n="pageTitle">Eagle IDE Full Activation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            min-height: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-
-        body {
-            font-family: Tahoma, Arial, "Segoe UI", sans-serif;
-            background: #0b1220;
-            color: #e5e7eb;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.6;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body.light {
-            background: #f3f6fb;
-            color: #172033;
-        }
-
-        #themeBtn {
-    background: transparent;
-    border-color: transparent;
-    box-shadow: none;
-}
-
-#themeBtn:active {
-    background: rgba(148, 163, 184, 0.12);
-}
-
-        /* Header */
-        header {
-            width: 100%;
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 18px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            min-width: 0;
-            color: #a8b4c7;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        body.light .header-left {
-            color: #64748b;
-        }
-
-        .status-dot {
-            width: 9px;
-            height: 9px;
-            min-width: 9px;
-            background: #22c55e;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 8px;
-            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
-        }
-
-        .header-buttons {
-            display: flex;
-            flex-direction: row;
-            direction: ltr;
-            align-items: center;
-            white-space: nowrap;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        /* Keep a fixed gap between language and theme buttons in RTL and LTR */
-        .header-buttons button {
-            flex-shrink: 0;
-        }
-
-        .header-buttons button + button {
-            margin-left: 9px;
-            margin-right: 0;
-        }
-
-        .btn-small {
-            min-height: 38px;
-            padding: 7px 14px;
-            border: 1px solid #35445b;
-            border-radius: 10px;
-            background: #17243a;
-            color: #e8edf7;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: inherit;
-            -webkit-appearance: none;
-            appearance: none;
-            transition: background-color 0.18s ease, border-color 0.18s ease;
-        }
-
-        .header-buttons .btn-small + .btn-small {
-            margin-right: 9px;
-        }
-
-        .btn-small:active {
-            opacity: 0.78;
-        }
-
-        body.light .btn-small {
-            background: #ffffff;
-            border-color: #d8e0eb;
-            color: #243047;
-        }
-
-        .btn-icon {
-            width: 40px;
-            height: 38px;
-            min-width: 40px;
-            padding: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 17px;
-            line-height: 1;
-        }
-
-        /* Main layout */
-        main {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 12px 18px 24px;
-            flex: 1;
-        }
-
-        .card {
-            background: #151f32;
-            border: 1px solid #293950;
-            border-radius: 20px;
-            padding: 26px;
-            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
-        }
-
-        body.light .card {
-            background: #ffffff;
-            border-color: #e3e9f2;
-            box-shadow: 0 12px 30px rgba(31, 45, 70, 0.08);
-        }
-
-        .center {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .icon-box {
-            width: 84px;
-            height: 84px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(99, 102, 241, 0.13);
-            border: 1px solid rgba(129, 140, 248, 0.20);
-            border-radius: 20px;
-            margin-bottom: 15px;
-        }
-
-        .icon-box img {
-            display: block;
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-        }
-
-        h1 {
-            font-size: 22px;
-            line-height: 1.4;
-            font-weight: bold;
-            margin-bottom: 7px;
-            color: #f8fafc;
-        }
-
-        body.light h1 {
-            color: #172033;
-        }
-
-        .subtitle {
-            font-size: 12px;
-            color: #9aa9bd;
-            line-height: 1.8;
-        }
-
-        body.light .subtitle {
-            color: #718096;
-        }
-
-        /* Device information */
-        .device-box {
-            background: #0e1728;
-            border: 1px solid #2b3b52;
-            border-radius: 14px;
-            padding: 15px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 21px;
-        }
-
-        body.light .device-box {
-            background: #f7f9fc;
-            border-color: #e4eaf2;
-        }
-
-        .device-label {
-            display: block;
-            color: #91a1b7;
-            font-size: 10px;
-            margin-bottom: 5px;
-        }
-
-        .device-id {
-            color: #9b9cff;
-            font-family: monospace;
-            font-size: 13px;
-            font-weight: bold;
-            word-break: break-all;
-        }
-
-        .secured {
-            color: #22c58b;
-            font-size: 12px;
-            font-weight: bold;
-            white-space: nowrap;
-            margin-right: 10px;
-        }
-
-        /* Payment tabs: Flex layout instead of CSS Grid for older WebKit */
-        .tabs {
-            display: flex;
-            align-items: stretch;
-            width: 100%;
-            padding: 5px;
-            background: #0e1728;
-            border: 1px solid #2b3b52;
-            border-radius: 14px;
-            margin-bottom: 21px;
-        }
-
-        body.light .tabs {
-            background: #f1f5f9;
-            border-color: #e2e8f0;
-        }
-
-        .tab {
-            display: block;
-            flex: 1;
-            width: 33.333%;
-            min-width: 0;
-            margin: 0 3px;
-            padding: 11px 4px;
-            border: 1px solid transparent;
-            border-radius: 10px;
-            background: transparent;
-            color: #9aa9bd;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        .tab.active {
-            background: #5755e8;
-            border-color: #7775f5;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.24);
-        }
-
-        .pane {
-            display: none;
-        }
-
-        .pane.active {
-            display: block;
-        }
-
-        /* Information panels */
-        .info-box {
-            background: #0e1728;
-            border: 1px solid #2b3b52;
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 15px;
-        }
-
-        body.light .info-box {
-            background: #f8fafc;
-            border-color: #e4eaf2;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price {
-            color: #34d399;
-            font-size: 19px;
-            font-weight: 900;
-            white-space: nowrap;
-            margin-right: 10px;
-        }
-
-        .note-box {
-            background: rgba(99, 102, 241, 0.10);
-            border: 1px solid rgba(129, 140, 248, 0.22);
-            border-radius: 13px;
-            padding: 14px;
-            color: #cbd5e1;
-            font-size: 12px;
-            line-height: 1.8;
-            margin-bottom: 16px;
-        }
-
-        body.light .note-box {
-            color: #475569;
-            background: #f1f3ff;
-            border-color: #e0e4ff;
-        }
-
-        .note-title {
-            color: #a5a4ff;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-
-        body.light .note-title {
-            color: #514bd6;
-        }
-
-        .address-box {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .address {
-            background: #0b1424;
-            border: 1px solid #2b3b52;
-            border-radius: 10px;
-            padding: 12px 10px;
-            margin-top: 9px;
-            color: #34d399;
-            font-family: monospace;
-            font-size: 14px;
-            font-weight: bold;
-            word-break: break-all;
-        }
-
-        body.light .address {
-            background: #ffffff;
-            border-color: #e2e8f0;
-        }
-
-        .address.wallet {
-            color: #fbbf24;
-        }
-
-        label {
-            display: block;
-            color: #a8b4c7;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 7px;
-        }
-
-        body.light label {
-            color: #64748b;
-        }
-
-        input {
-            display: block;
-            width: 100%;
-            min-height: 44px;
-            padding: 11px 14px;
-            border: 1px solid #35445b;
-            border-radius: 11px;
-            background: #0b1424;
-            color: #e5e7eb;
-            font-size: 13px;
-            font-family: monospace;
-            margin-bottom: 15px;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        input:focus {
-            border-color: #7775f5;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.13);
-        }
-
-        body.light input {
-            background: #ffffff;
-            border-color: #d5deea;
-            color: #172033;
-        }
-
-        /* Main action buttons */
-        .btn {
-            display: block;
-            width: 100%;
-            min-height: 46px;
-            padding: 12px 16px;
-            border: 0;
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: inherit;
-            -webkit-appearance: none;
-            appearance: none;
-            transition: opacity 0.18s ease, background-color 0.18s ease;
-        }
-
-        .btn:active {
-            opacity: 0.82;
-        }
-
-        .btn-primary {
-            background: #5b55e7;
-            background: linear-gradient(to right, #4f46e5, #7c3aed);
-            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.22);
-        }
-
-        .btn-green {
-            background: #059669;
-            box-shadow: 0 6px 16px rgba(5, 150, 105, 0.16);
-        }
-
-        .btn-amber {
-            background: #d97706;
-            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.16);
-        }
-
-        .btn:focus,
-        .btn-small:focus,
-        .tab:focus {
-            outline: 1px dotted #a5b4fc;
-            outline-offset: 2px;
-        }
-
-        /* Footer */
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 17px 12px 20px;
-            color: #75839a;
-            font-size: 11px;
-        }
-
-        body.light footer {
-            color: #8491a5;
-        }
-
-        /* Waiting screen */
-        .waiting {
-            text-align: center;
-            padding: 34px 10px;
-        }
-
-        .waiting-icon {
-            width: 66px;
-            height: 66px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 17px;
-            background: rgba(245, 158, 11, 0.13);
-            border: 1px solid rgba(245, 158, 11, 0.20);
-            border-radius: 50%;
-            color: #fbbf24;
-            font-size: 27px;
-        }
-
-        .waiting h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .waiting p {
-            max-width: 300px;
-            margin: 0 auto 17px;
-            color: #a8b4c7;
-            font-size: 12px;
-            line-height: 1.9;
-        }
-
-        body.light .waiting p {
-            color: #64748b;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 7px 14px;
-            background: #0e1728;
-            border: 1px solid #35445b;
-            border-radius: 9px;
-            color: #fbbf24;
-            font-family: monospace;
-            font-size: 12px;
-        }
-
-        body.light .status-badge {
-            background: #f8fafc;
-            border-color: #e2e8f0;
-        }
-
-        /* Small JavaFX WebView windows */
-        @media screen and (max-width: 420px) {
-            header {
-                padding: 14px 12px;
-            }
-
-            .header-left {
-                font-size: 10px;
-            }
-
-            .header-buttons {
-                margin-right: 7px;
-            }
-
-            .btn-small {
-                padding: 6px 10px;
-            }
-
-            .header-buttons button + button {
-                margin-left: 6px;
-                margin-right: 0;
-            }
-
-            main {
-                padding: 8px 12px 20px;
-            }
-
-            .card {
-                padding: 19px 16px;
-                border-radius: 16px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .tab {
-                font-size: 11px;
-                padding: 10px 2px;
-            }
-
-            .price {
-                font-size: 16px;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+        body { font-family: 'Cairo', 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
     </style>
 </head>
-<body class="dark" id="bodyRoot">
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white transition-colors duration-300" id="bodyRoot">
 
-    <header>
-        <div class="header-left">
-            <span class="status-dot"></span>
-            <span data-i18n="secureGateway">Eagle IDE From Kadysoft Ltd.</span>
+    <!-- Header Controls -->
+    <header class="w-full max-w-4xl mx-auto p-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-medium text-slate-600 dark:text-slate-400" data-i18n="secureGateway">Eagle IDE From Kadysoft Ltd.</span>
         </div>
-        <div class="header-buttons">
-            <button type="button" class="btn-small" onclick="toggleLanguage()" aria-label="Change language">
+        <div class="flex items-center gap-3">
+            <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition text-slate-800 dark:text-slate-200 shadow-sm">
+                <i class="fa-solid fa-globe text-indigo-500 dark:text-indigo-400"></i>
                 <span id="langText">English</span>
             </button>
-            <button type="button" class="btn-small btn-icon"
-        onclick="toggleTheme()" aria-label="Toggle color theme"
-        id="themeBtn"
-        style="display: flex; justify-content: center; align-items: center;">
-    🔆
-</button>
+            <button onclick="toggleTheme()" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 flex items-center justify-center transition text-indigo-600 dark:text-amber-400 shadow-sm">
+                <i id="themeIcon" class="fa-solid fa-sun"></i>
+            </button>
         </div>
     </header>
 
-    <main>
-        <div class="card">
+    <!-- Main Container -->
+    <main class="w-full max-w-xl mx-auto px-4 py-6">
+        <div id="mainCard" class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800/80 p-6 sm:p-8 rounded-2xl shadow-2xl relative overflow-hidden transition-colors duration-300">
+            
             <div id="mainContentArea">
-
-                <div class="center">
-                    <div class="icon-box"><img src="icon.png" width="60" height="60"></div>
-                    <h1 data-i18n="mainTitle">تفعيل رخصة البرنامج</h1>
-                    <p class="subtitle" data-i18n="mainSubtitle">اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري</p>
+                <div class="text-center mb-6">
+                    <div class="inline-flex p-3 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100" data-i18n="mainTitle">تفعيل رخصة البرنامج</h1>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-1" data-i18n="mainSubtitle">اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري</p>
                 </div>
 
-                <div class="device-box">
+                <!-- Secure Masked Device ID -->
+                <div class="mb-6 p-3.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/60 rounded-xl flex items-center justify-between transition-colors duration-300">
                     <div>
-                        <span class="device-label" data-i18n="deviceIdLabel">معرف الجهاز الآمن</span>
-                        <span id="deviceIdDisplay" class="device-id">جاري التحقق...</span>
+                        <span class="text-[10px] uppercase tracking-wider text-slate-500 block font-semibold" data-i18n="deviceIdLabel">معرف الجهاز الآمن (Secure Device ID)</span>
+                        <span id="deviceIdDisplay" class="font-mono text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 font-bold">جاري التحقق...</span>
                     </div>
-                    <div class="secured">✓ <span data-i18n="securedBadge">محمي</span></div>
+                    <div class="text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-1 font-semibold">
+                        <i class="fa-solid fa-check-circle"></i> <span data-i18n="securedBadge">محمي</span>
+                    </div>
                 </div>
 
-                <div class="tabs">
-                    <button class="tab active" id="tab-cards" onclick="switchTab('cards')" data-i18n="tabCard">البطاقات</button>
-                    <button class="tab" id="tab-instapay" onclick="switchTab('instapay')" data-i18n="tabInstapay">انستا باي</button>
-                    <button class="tab" id="tab-wallet" onclick="switchTab('wallet')" data-i18n="tabWallet">المحافظ</button>
+                <!-- Tabs -->
+                <div class="grid grid-cols-3 gap-2 mb-6 p-1 bg-slate-100 dark:bg-slate-950/40 rounded-xl border border-slate-200 dark:border-slate-800/40 transition-colors duration-300">
+                    <button onclick="switchTab('cards')" id="tab-cards" class="py-2.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white flex items-center justify-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-credit-card"></i> <span data-i18n="tabCard">البطاقات</span>
+                    </button>
+                    <button onclick="switchTab('instapay')" id="tab-instapay" class="py-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-bolt"></i> <span data-i18n="tabInstapay">انستا باي</span>
+                    </button>
+                    <button onclick="switchTab('wallet')" id="tab-wallet" class="py-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-wallet"></i> <span data-i18n="tabWallet">المحافظ</span>
+                    </button>
                 </div>
 
-                <!-- Cards -->
-                <div id="pane-cards" class="pane active">
-                    <div class="info-box">
-                        <div class="price-row">
+                <!-- Panes -->
+                <div class="space-y-4">
+                    <!-- Cards Pane -->
+                    <div id="pane-cards" class="space-y-4">
+                        <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl flex items-center justify-between transition-colors duration-300">
                             <div>
-                                <div style="font-weight:bold;font-size:14px" data-i18n="licenseDuration">رخصة مدى الحياة</div>
-                                <div style="font-size:12px;color:#94a3b8" data-i18n="licenseDesc">تفعيل دائم على هذا الجهاز مع التحديثات</div>
+                                <span class="text-sm font-bold block text-slate-800 dark:text-slate-200" data-i18n="licenseDuration">رخصة مدى الحياة (Lifetime)</span>
+                                <span class="text-xs text-slate-600 dark:text-slate-400" data-i18n="licenseDesc">تفعيل دائم على هذا الجهاز مع التحديثات</span>
                             </div>
-                            <div class="price">$ 10/EGP 500</div>
+                            <span class="text-xl font-black text-emerald-600 dark:text-emerald-400">$29.99</span>
                         </div>
+                        
+                        <div class="p-3.5 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-xl text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+                            <p class="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-info"></i> <span data-i18n="cardInfoTitle">كيف يتم الدفع بالبطاقة؟</span>
+                            </p>
+                            <p data-i18n="cardInfoDesc">اضغط على زر الدفع أدناه للانتقال إلى بوابة الدفع الآمنة (Visa / MasterCard). بمجرد إتمام الدفع، سيتم تفعيل جهازك تلقائياً فوراً.</p>
+                        </div>
+
+                        <button onclick="processCardPayment()" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-lock"></i> <span data-i18n="payCardBtn">ادفع بالبطاقة بأمان</span>
+                        </button>
                     </div>
 
-                    <div class="note-box">
-                        <div class="note-title" data-i18n="cardInfoTitle">كيف يتم الدفع بالبطاقة؟</div>
-                        <div data-i18n="cardInfoDesc">اضغط على زر الدفع أدناه للانتقال إلى بوابة الدفع الآمنة. بمجرد إتمام الدفع، سيتم تفعيل جهازك تلقائياً.</div>
+                    <!-- InstaPay Pane -->
+                    <div id="pane-instapay" class="hidden space-y-4">
+                        <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-center space-y-2 transition-colors duration-300">
+                            <span class="text-xs text-slate-600 dark:text-slate-400 block" data-i18n="instapayInstruction">حول المبلغ عبر InstaPay إلى العنوان التالي:</span>
+                            <div class="font-mono text-sm font-bold text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-900 py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-800 select-all shadow-sm">
+                                progkady161@instapay
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1" data-i18n="refNumberLabel">رقم عملية التحويل (Reference Number):</label>
+                            <input type="text" id="instapayRef" data-i18n-placeholder="instapayPlaceholder" placeholder="أدخل رقم العملية" class="w-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition font-mono shadow-sm">
+                        </div>
+                        <button onclick="submitManualPayment('InstaPay')" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> <span data-i18n="submitOrderBtn">تأكيد إرسال الطلب</span>
+                        </button>
                     </div>
 
-                    <button class="btn btn-primary" onclick="processCardPayment()" data-i18n="payCardBtn">ادفع بالبطاقة بأمان</button>
+                    <!-- Wallets Pane -->
+                    <div id="pane-wallet" class="hidden space-y-4">
+                        <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-center space-y-2 transition-colors duration-300">
+                            <span class="text-xs text-slate-600 dark:text-slate-400 block" data-i18n="walletInstruction">حول محفظة الي:</span>
+                            <div class="font-mono text-sm font-bold text-amber-600 dark:text-amber-400 bg-white dark:bg-slate-900 py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-800 select-all shadow-sm">
+                                01154073811
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1" data-i18n="walletNumberLabel">رقم هاتفك المحول منه:</label>
+                            <input type="text" id="walletSender" data-i18n-placeholder="walletPlaceholder" placeholder="010XXXXXXXX" class="w-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition font-mono shadow-sm">
+                        </div>
+                        <button onclick="submitManualPayment('Wallet')" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> <span data-i18n="submitOrderBtn">تأكيد إرسال الطلب</span>
+                        </button>
+                    </div>
                 </div>
-
-                <!-- InstaPay -->
-                <div id="pane-instapay" class="pane">
-                    <div class="info-box address-box">
-                        <div style="font-size:12px;color:#94a3b8" data-i18n="instapayInstruction">حول المبلغ عبر InstaPay إلى:</div>
-                        <div class="address">progkady161@instapay</div>
-                    </div>
-
-                    <label data-i18n="refNumberLabel">رقم عملية التحويل:</label>
-                    <input type="text" id="instapayRef" placeholder="أدخل رقم العملية">
-
-                    <button class="btn btn-green" onclick="submitManualPayment('InstaPay')" data-i18n="submitOrderBtn">تأكيد إرسال الطلب</button>
-                </div>
-
-                <!-- Wallet -->
-                <div id="pane-wallet" class="pane">
-                    <div class="info-box address-box">
-                        <div style="font-size:12px;color:#94a3b8" data-i18n="walletInstruction">حول محفظة فودافون كاش إلى:</div>
-                        <div class="address wallet">01154073811</div>
-                    </div>
-
-                    <label data-i18n="walletNumberLabel">رقم هاتفك المحول منه:</label>
-                    <input type="text" id="walletSender" placeholder="010XXXXXXXX">
-
-                    <button class="btn btn-amber" onclick="submitManualPayment('Wallet')" data-i18n="submitOrderBtn">تأكيد إرسال الطلب</button>
-                </div>
-
             </div>
+
         </div>
     </main>
 
-    <footer>
-        &copy; 2026 Kadysoft Ltd. <span data-i18n="rights">جميع الحقوق محفوظة.</span>
+    <!-- Footer -->
+    <footer class="text-center py-4 text-xs text-slate-500 dark:text-slate-500">
+        &copy; 2026 Kadysoft Ltd. <span data-i18n="rights">All rights reserved.</span>
     </footer>
 
     <script>
-        const SUPABASE_URL = "https://qlnitkqmpqntpecsbhdm.supabase.co";
-        const SUPABASE_KEY = "sb_publishable_D9dej6ZMIEuOXFeIQzLWgA_GSE0LQII";
+        // =========================================================================
+        // 🚨 هنا تضع بيانات Supabase الخاصة بك 🚨
+        // =========================================================================
+        const SUPABASE_URL = "https://qlnitkqmpqntpecsbhdm.supabase.co"; // ضع Project URL هنا
+        const SUPABASE_KEY = "sb_publishable_D9dej6ZMIEuOXFeIQzLWgA_GSE0LQII"; // ضع Publishable Key هنا
+        // =========================================================================
 
         const translations = {
             ar: {
+                pageTitle: "Eagle IDE Full Activation",
                 secureGateway: "Eagle IDE From Kadysoft Ltd.",
                 mainTitle: "تفعيل رخصة البرنامج",
                 mainSubtitle: "اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري",
-                deviceIdLabel: "معرف الجهاز الآمن",
+                deviceIdLabel: "معرف الجهاز الآمن (Secure Device ID)",
                 securedBadge: "محمي",
                 tabCard: "البطاقات",
                 tabInstapay: "انستا باي",
                 tabWallet: "المحافظ",
-                licenseDuration: "رخصة مدى الحياة",
+                licenseDuration: "رخصة مدى الحياة (Lifetime)",
                 licenseDesc: "تفعيل دائم على هذا الجهاز مع التحديثات",
                 cardInfoTitle: "كيف يتم الدفع بالبطاقة؟",
-                cardInfoDesc: "اضغط على زر الدفع أدناه للانتقال إلى بوابة الدفع الآمنة. بمجرد إتمام الدفع، سيتم تفعيل جهازك تلقائياً.",
+                cardInfoDesc: "اضغط على زر الدفع أدناه للانتقال إلى بوابة الدفع الآمنة (Visa / MasterCard). بمجرد إتمام الدفع، سيتم تفعيل جهازك تلقائياً فوراً.",
                 payCardBtn: "ادفع بالبطاقة بأمان",
-                instapayInstruction: "حول المبلغ عبر InstaPay إلى:",
-                refNumberLabel: "رقم عملية التحويل:",
-                walletInstruction: "حول محفظة فودافون كاش إلى:",
+                instapayInstruction: "حول المبلغ عبر InstaPay إلى العنوان التالي:",
+                refNumberLabel: "رقم عملية التحويل (Reference Number):",
+                instapayPlaceholder: "أدخل رقم العملية",
+                walletInstruction: "حول محفظة (فودافون كاش) إلى:",
                 walletNumberLabel: "رقم هاتفك المحول منه:",
+                walletPlaceholder: "010XXXXXXXX",
                 submitOrderBtn: "تأكيد إرسال الطلب",
                 rights: "جميع الحقوق محفوظة.",
                 waitingTitle: "جاري مراجعة وتأكيد الطلب",
-                waitingDesc: "تم إرسال طلبك بنجاح! يتم الآن التحقق من عملية الدفع. سيتم فتح البرنامج تلقائياً فور الموافقة عليه."
+                waitingDesc: "تم إرسال طلبك بنجاح! يتم الآن التحقق من عملية الدفع ومراجعتها يدوياً. سيتم فتح البرنامج تلقائياً فور الموافقة عليه."
             },
             en: {
+                pageTitle: "Eagle IDE Full Activation",
                 secureGateway: "Eagle IDE From Kadysoft Ltd.",
                 mainTitle: "Activate Your License",
                 mainSubtitle: "Choose your preferred payment method for instant activation",
@@ -720,12 +188,14 @@
                 licenseDuration: "Lifetime License",
                 licenseDesc: "Permanent activation for this device with updates",
                 cardInfoTitle: "How does card payment work?",
-                cardInfoDesc: "Click the payment button below to go to the secure payment gateway. Once paid, your device will activate automatically.",
+                cardInfoDesc: "Click the payment button below to redirect to the secure gateway (Visa / MasterCard). Once paid, your device will activate automatically.",
                 payCardBtn: "Pay Securely with Card",
-                instapayInstruction: "Transfer via InstaPay to:",
+                instapayInstruction: "Transfer the amount via InstaPay to:",
                 refNumberLabel: "Transaction Reference Number:",
-                walletInstruction: "Transfer via Vodafone Cash to:",
+                instapayPlaceholder: "Enter reference number",
+                walletInstruction: "Transfer via mobile wallet:",
                 walletNumberLabel: "Your Sender Mobile Number:",
+                walletPlaceholder: "010XXXXXXXX",
                 submitOrderBtn: "Submit Order Confirmation",
                 rights: "All rights reserved.",
                 waitingTitle: "Awaiting Order Approval",
@@ -748,78 +218,115 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) {
+                    el.setAttribute('placeholder', translations[currentLang][key]);
+                }
+            });
         }
 
         function toggleTheme() {
-            const body = document.getElementById('bodyRoot');
-            body.classList.toggle('light');
-            body.classList.toggle('dark');
-            document.getElementById('themeBtn').innerText = body.classList.contains('light') ? '🌙' : '🔆';
+            const html = document.getElementById('htmlRoot');
+            const icon = document.getElementById('themeIcon');
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+                icon.className = "fa-solid fa-sun text-amber-400";
+            } else {
+                icon.className = "fa-solid fa-moon text-indigo-600";
+            }
         }
 
         function switchTab(tab) {
             ['cards', 'instapay', 'wallet'].forEach(t => {
-                document.getElementById('pane-' + t).classList.remove('active');
-                document.getElementById('tab-' + t).classList.remove('active');
+                document.getElementById(`pane-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).className = "py-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5";
             });
-            document.getElementById('pane-' + tab).classList.add('active');
-            document.getElementById('tab-' + tab).classList.add('active');
+            document.getElementById(`pane-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).className = "py-2.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white flex items-center justify-center gap-1.5 shadow-md";
         }
 
         const urlParams = new URLSearchParams(window.location.search);
         const rawDeviceId = urlParams.get('device_id') || 'DEV-SAMPLE-9988';
-        const maskedDeviceId = rawDeviceId.length > 8 
-            ? rawDeviceId.substring(0, 4) + '••••••••' + rawDeviceId.slice(-4) 
-            : rawDeviceId;
+        const maskedDeviceId = rawDeviceId.length > 8 ? rawDeviceId.substring(0, 4) + '••••••••' + rawDeviceId.slice(-4) : rawDeviceId;
         document.getElementById('deviceIdDisplay').innerText = maskedDeviceId;
 
-        function processCardPayment() {
-            const paymobLink = "https://paymob.link/9ScTA";
-            const finalUrl = paymobLink + "?merchant_staff_tag=" + encodeURIComponent(rawDeviceId);
-            window.location.href = finalUrl;
-        }
+        // فحص تلقائي لحالة الطلب عند تحميل الصفحة مباشرة من Supabase
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/licenses?device_id=eq.${rawDeviceId}&select=status`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                const data = await response.json();
+                if (data && data.length > 0 && data[0].status === 'pending') {
+                    showWaitingScreen();
+                }
+            } catch (e) {}
+        });
+
+       function processCardPayment() {
+    // رابط Paymob الجاهز الخاص بك
+    const paymobLink = "https://paymob.link/9ScTA";
+    
+    // إلحاق معرّف الجهاز (Device ID) برابط الدفع لكي تستطيع معرفة الجهاز الذي قام بالعملية
+    const finalUrl = paymobLink + "?merchant_staff_tag=" + encodeURIComponent(rawDeviceId);
+    
+    // توجيه المستخدم لصفحة الدفع الآمنة فوراً
+    window.location.href = finalUrl;
+}
 
         function submitManualPayment(method) {
-            let detail = method === 'InstaPay' 
-                ? document.getElementById('instapayRef').value 
-                : document.getElementById('walletSender').value;
-
-            if (!detail) {
+            let detail = method === 'InstaPay' ? document.getElementById('instapayRef').value : document.getElementById('walletSender').value;
+            if(!detail) {
                 alert(currentLang === 'ar' ? 'يرجى إكمال الحقل المطلوب' : 'Please fill out the required field');
                 return;
             }
             registerOrderOnServer(method, rawDeviceId, detail);
         }
 
+        // إرسال البيانات مباشرة لجدول licenses في Supabase
         async function registerOrderOnServer(method, devId, detail = '') {
             showWaitingScreen();
+
             try {
-                await fetch(SUPABASE_URL + "/rest/v1/licenses", {
-                    method: "POST",
+                await fetch(`${SUPABASE_URL}/rest/v1/licenses`, {
+                    method: 'POST',
                     headers: {
-                        "Content-Type": "application/json",
-                        "apikey": SUPABASE_KEY,
-                        "Authorization": "Bearer " + SUPABASE_KEY,
-                        "Prefer": "resolution=merge-duplicates"
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'resolution=merge-duplicates'
                     },
-                    body: JSON.stringify({
-                        device_id: devId,
-                        method: method,
-                        detail: detail,
-                        status: "pending"
+                    body: JSON.stringify({ 
+                        device_id: devId, 
+                        method: method, 
+                        detail: detail, 
+                        status: 'pending' 
                     })
                 });
             } catch (e) {}
         }
 
         function showWaitingScreen() {
-            const t = translations[currentLang];
-            document.getElementById('mainContentArea').innerHTML = `
-                <div class="waiting">
-                    <div class="waiting-icon">⏳</div>
-                    <h2>${t.waitingTitle}</h2>
-                    <p>${t.waitingDesc}</p>
-                    <div class="status-badge">Status: Pending Approval</div>
+            const t = translations[currentLang]; // جلب النصوص باللغة الحالية (عربي أو إنجليزي)
+            const area = document.getElementById('mainContentArea');
+            area.innerHTML = `
+                <div class="text-center py-8 space-y-4">
+                    <div class="w-16 h-16 bg-amber-500/10 text-amber-500 dark:text-amber-400 rounded-full flex items-center justify-center mx-auto text-3xl animate-bounce">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">${t.waitingTitle}</h2>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm mx-auto">${t.waitingDesc}</p>
+                    <div class="pt-4">
+                        <span class="inline-block px-4 py-2 bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl font-mono text-xs text-amber-600 dark:text-amber-400 font-semibold">
+                            Status: Pending Approval
+                        </span>
+                    </div>
                 </div>
             `;
         }
