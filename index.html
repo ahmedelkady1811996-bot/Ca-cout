@@ -414,7 +414,7 @@
             <button class="btn-small" onclick="toggleLanguage()">
                 <span id="langText">English</span>
             </button>
-            <button class="btn-small btn-icon" onclick="toggleTheme()" id="themeBtn">❤️</button>
+            <button class="btn-small btn-icon" onclick="toggleTheme()" id="themeBtn">🔃</button>
         </div>
     </header>
 
@@ -423,7 +423,7 @@
             <div id="mainContentArea">
 
                 <div class="center">
-                    <div class="icon-box"><img src="icon.png" width="75" height="75"></div>
+                    <div class="icon-box"><img src="icon.png" width="60" height="60"></div>
                     <h1 data-i18n="mainTitle">تفعيل رخصة البرنامج</h1>
                     <p class="subtitle" data-i18n="mainSubtitle">اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري</p>
                 </div>
@@ -570,7 +570,7 @@
             const body = document.getElementById('bodyRoot');
             body.classList.toggle('light');
             body.classList.toggle('dark');
-            document.getElementById('themeBtn').innerText = body.classList.contains('light') ? '🌙' : '☀️';
+            document.getElementById('themeBtn').innerText = body.classList.contains('light') ? '🔃' : '🔃';
         }
 
         function switchTab(tab) {
