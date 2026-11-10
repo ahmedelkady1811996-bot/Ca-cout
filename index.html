@@ -156,6 +156,8 @@
                 </div>
             </div>
 
+            <div id="stateArea" class="hidden"></div>
+
         </div>
     </main>
 
@@ -196,6 +198,10 @@
                 walletPlaceholder: "010XXXXXXXX",
                 submitOrderBtn: "تأكيد إرسال الطلب",
                 rights: "جميع الحقوق محفوظة.",
+                blockedTitle: "هذا الجهاز محظور",
+                blockedDesc: "تم حظر هذا الجهاز. يرجى التواصل مع الدعم.",
+                noDeviceTitle: "افتح الصفحة من البرنامج",
+                noDeviceDesc: "لا يوجد جهاز مسجل. افتح هذه الصفحة من داخل Eagle IDE.",
                 waitingTitle: "جاري مراجعة وتأكيد الطلب",
                 waitingDesc: "تم إرسال طلبك بنجاح! يتم الآن التحقق من عملية الدفع ومراجعتها. سيتم تفعيل البرنامج تلقائياً فور الموافقة عليه.",
                 successTitle: "تم تفعيل الرخصة بنجاح",
@@ -224,6 +230,10 @@
                 walletPlaceholder: "010XXXXXXXX",
                 submitOrderBtn: "Confirm Order Dispatch",
                 rights: "All rights reserved.",
+                blockedTitle: "Device Blocked",
+                blockedDesc: "This device has been blocked. Please contact support.",
+                noDeviceTitle: "Open this page from the app",
+                noDeviceDesc: "No registered device found. Open this page from inside Eagle IDE.",
                 waitingTitle: "Listening for Server Verification",
                 waitingDesc: "Order received successfully. Verification in progress. Software workstation will auto-unlock upon confirmation.",
                 successTitle: "Device Licensed Successfully",
@@ -279,39 +289,81 @@
 
         // ========== Device ID Processing ==========
         const urlParams = new URLSearchParams(window.location.search);
-        const rawDeviceId = urlParams.get('device_id') || 'DEV-SAMPLE-9988';
+        const rawDeviceId = urlParams.get('device_id') || '';
         const maskedDeviceId = rawDeviceId.length > 8 
             ? rawDeviceId.substring(0, 4) + '••••••••' + rawDeviceId.slice(-4) 
             : rawDeviceId;
         document.getElementById('deviceIdDisplay').innerText = maskedDeviceId;
 
+        // ========== View switching ==========
+        // unpaid -> payment options | pending -> waiting
+        // active/approved/paid -> success | blocked -> blocked
+        let currentView = 'pay';
+
+        function showState() {
+            document.getElementById('mainContentArea').classList.add('hidden');
+            const area = document.getElementById('stateArea');
+            area.classList.remove('hidden');
+            return area;
+        }
+
+        function showPayView() {
+            document.getElementById('stateArea').classList.add('hidden');
+            document.getElementById('mainContentArea').classList.remove('hidden');
+        }
+
+        function showMessageScreen(icon, colorClass, titleKey, descKey) {
+            const t = translations[currentLang];
+            showState().innerHTML = `
+                <div class="text-center py-6 space-y-4">
+                    <div class="w-14 h-14 ${colorClass} border rounded-full flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid ${icon}"></i>
+                    </div>
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-vscode-textMain">${t[titleKey]}</h2>
+                    <p class="text-xs text-slate-500 dark:text-vscode-textDim leading-relaxed max-w-sm mx-auto">${t[descKey]}</p>
+                </div>`;
+        }
+
         // ========== Supabase License Checker ==========
         async function checkLicenseStatus() {
+            if (!rawDeviceId) return;
             try {
                 const response = await fetch(
                     `${SUPABASE_URL}/rest/v1/licenses?device_id=eq.${encodeURIComponent(rawDeviceId)}&select=status`,
-                    {
-                        headers: {
-                            'apikey': SUPABASE_KEY,
-                            'Authorization': `Bearer ${SUPABASE_KEY}`
-                        }
-                    }
+                    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
                 );
-
                 if (!response.ok) return;
 
                 const data = await response.json();
-                if (data && data.length > 0) {
-                    const status = data[0].status;
-                    
-                    if (status === 'active' || status === 'approved') {
-                        clearInterval(statusCheckInterval);
-                        showSuccessScreen();
-                    } else if (status === 'pending' || status === 'paid') {
-                        if (!document.getElementById('waitingIndicator')) {
-                            showWaitingScreen();
-                        }
+
+                if (!data || data.length === 0) {
+                    if (currentView !== 'none') {
+                        currentView = 'none';
+                        showMessageScreen('fa-link-slash', 'bg-vscode-warning/10 border-vscode-warning/30 text-vscode-warning', 'noDeviceTitle', 'noDeviceDesc');
                     }
+                    return;
+                }
+
+                const s = String(data[0].status || '').toLowerCase();
+                let view;
+                if (['active', 'approved', 'paid'].includes(s)) view = 'ok';
+                else if (s === 'blocked' || s === 'revoked') view = 'blocked';
+                else if (s === 'pending') view = 'wait';
+                else view = 'pay';   // unpaid / new / anything else
+
+                if (view === currentView) return;
+                currentView = view;
+
+                if (view === 'ok') {
+                    clearInterval(statusCheckInterval);
+                    showSuccessScreen();
+                } else if (view === 'blocked') {
+                    clearInterval(statusCheckInterval);
+                    showMessageScreen('fa-ban', 'bg-red-500/10 border-red-500/30 text-red-500', 'blockedTitle', 'blockedDesc');
+                } else if (view === 'wait') {
+                    showWaitingScreen();
+                } else {
+                    showPayView();
                 }
             } catch (e) {
                 console.error('Error checking status:', e);
@@ -319,19 +371,26 @@
         }
 
         window.addEventListener('DOMContentLoaded', async () => {
+            if (!rawDeviceId) {
+                currentView = 'none';
+                showMessageScreen('fa-link-slash', 'bg-vscode-warning/10 border-vscode-warning/30 text-vscode-warning', 'noDeviceTitle', 'noDeviceDesc');
+                return;
+            }
             await checkLicenseStatus();
             statusCheckInterval = setInterval(checkLicenseStatus, 5000);
         });
 
         // ========== Payment Processing ==========
         async function processCardPayment() {
-            await registerOrderOnServer('Card', 'Paymob');
+            if (!rawDeviceId) return;
+            const ok = await registerOrderOnServer('Card', 'Paymob');
+            if (!ok) return;
             const paymobLink = "https://paymob.link/9ScTA";
-            const finalUrl = paymobLink + "?merchant_staff_tag=" + encodeURIComponent(rawDeviceId);
-            window.location.href = finalUrl;
+            window.location.href = paymobLink + "?merchant_staff_tag=" + encodeURIComponent(rawDeviceId);
         }
 
-        function submitManualPayment(method) {
+        async function submitManualPayment(method) {
+            if (!rawDeviceId) return;
             let detail = method === 'InstaPay'
                 ? document.getElementById('instapayRef').value.trim()
                 : document.getElementById('walletSender').value.trim();
@@ -341,43 +400,42 @@
                 return;
             }
 
-            registerOrderOnServer(method, detail);
+            if (await registerOrderOnServer(method, detail)) {
+                currentView = 'wait';
+                showWaitingScreen();
+            }
         }
 
+        // Moves the device from "unpaid" to "pending" through a server-side
+        // function. The server refuses it for blocked / already-active devices.
         async function registerOrderOnServer(method, detail = '') {
-            showWaitingScreen();
-
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/licenses`, {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/submit_payment`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'apikey': SUPABASE_KEY,
-                        'Authorization': `Bearer ${SUPABASE_KEY}`,
-                        'Prefer': 'resolution=merge-duplicates,return=minimal'
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
                     },
-                    body: JSON.stringify({
-                        device_id: rawDeviceId,
-                        method: method,
-                        detail: detail,
-                        status: 'pending'
-                    })
+                    body: JSON.stringify({ p_device: rawDeviceId, p_method: method, p_detail: detail })
                 });
-
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Supabase Error:', response.status, errorText);
+                    console.error('Supabase Error:', response.status, await response.text());
                     alert(currentLang === 'ar' ? 'حدث خطأ أثناء حفظ الطلب في قاعدة البيانات.' : 'Error saving order to database.');
+                    return false;
                 }
+                return true;
             } catch (e) {
                 console.error('Network Error:', e);
+                alert(currentLang === 'ar' ? 'تعذر الاتصال بالسيرفر.' : 'Could not reach the server.');
+                return false;
             }
         }
 
         // ========== VS Code Styled Waiting Screen ==========
         function showWaitingScreen() {
             const t = translations[currentLang];
-            const area = document.getElementById('mainContentArea');
+            const area = showState();
             area.innerHTML = `
                 <div id="waitingIndicator" class="text-center py-6 space-y-4">
                     <div class="w-14 h-14 bg-vscode-warning/10 border border-vscode-warning/30 text-vscode-warning rounded-full flex items-center justify-center mx-auto text-2xl animate-pulse">
@@ -400,7 +458,7 @@
         // ========== VS Code Styled Success Screen ==========
         function showSuccessScreen() {
             const t = translations[currentLang];
-            const area = document.getElementById('mainContentArea');
+            const area = showState();
             area.innerHTML = `
                 <div class="text-center py-6 space-y-4">
                     <div class="w-14 h-14 bg-vscode-success/10 border border-vscode-success/30 text-vscode-success rounded-full flex items-center justify-center mx-auto text-2xl">
