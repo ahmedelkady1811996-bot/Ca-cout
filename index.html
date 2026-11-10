@@ -3,130 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Eagle IDE Full Activation</title>
+    <title data-i18n="pageTitle">Eagle IDE — License Manager</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { darkMode: 'class' }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        vscode: {
+                            deep: '#181818',
+                            bg: '#1e1e1e',
+                            sidebar: '#252526',
+                            title: '#2d2d2d',
+                            accent: '#007acc',
+                            accentHover: '#1c90ff',
+                            border: '#333333',
+                            textMain: '#cccccc',
+                            textDim: '#858585',
+                            success: '#4ec9b0',
+                            warning: '#cca700'
+                        }
+                    }
+                }
+            }
+        }
     </script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
-        body { font-family: 'Cairo', 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600&display=swap');
+        body { font-family: 'Cairo', 'Inter', sans-serif; }
+        .font-code { font-family: 'Fira Code', 'Consolas', monospace; }
     </style>
 </head>
-<body class="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white transition-colors duration-300" id="bodyRoot">
+<body class="bg-slate-100 dark:bg-vscode-deep text-slate-900 dark:text-vscode-textMain min-h-screen flex flex-col justify-between selection:bg-vscode-accent selection:text-white transition-colors duration-300" id="bodyRoot">
 
     <!-- Header Controls -->
     <header class="w-full max-w-4xl mx-auto p-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span class="text-xs font-medium text-slate-600 dark:text-slate-400" data-i18n="secureGateway">Eagle IDE From Kadysoft Ltd.</span>
+        <div class="flex items-center gap-2.5 bg-white dark:bg-vscode-sidebar px-3 py-1.5 rounded-md border border-slate-200 dark:border-vscode-border shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-vscode-accent animate-pulse"></span>
+            <span class="text-xs font-semibold text-slate-700 dark:text-vscode-textMain tracking-wide" data-i18n="secureGateway">Eagle IDE Authorization Server</span>
         </div>
-        <div class="flex items-center gap-3">
-            <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition text-slate-800 dark:text-slate-200 shadow-sm">
-                <i class="fa-solid fa-globe text-indigo-500 dark:text-indigo-400"></i>
+        <div class="flex items-center gap-2">
+            <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded bg-white dark:bg-vscode-sidebar border border-slate-300 dark:border-vscode-border hover:border-slate-400 dark:hover:border-slate-600 text-xs font-semibold flex items-center gap-2 transition text-slate-800 dark:text-vscode-textMain shadow-sm">
+                <i class="fa-solid fa-globe text-vscode-accent"></i>
                 <span id="langText">English</span>
             </button>
-            <button onclick="toggleTheme()" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 flex items-center justify-center transition text-indigo-600 dark:text-amber-400 shadow-sm">
+            <button onclick="toggleTheme()" class="w-8 h-8 rounded bg-white dark:bg-vscode-sidebar border border-slate-300 dark:border-vscode-border hover:border-slate-400 dark:hover:border-slate-600 flex items-center justify-center transition text-vscode-accent dark:text-vscode-warning shadow-sm">
                 <i id="themeIcon" class="fa-solid fa-sun"></i>
             </button>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="w-full max-w-xl mx-auto px-4 py-6">
-        <div id="mainCard" class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800/80 p-6 sm:p-8 rounded-2xl shadow-2xl relative overflow-hidden transition-colors duration-300">
+    <main class="w-full max-w-xl mx-auto px-4 py-4">
+        <div id="mainCard" class="bg-white dark:bg-vscode-bg border border-slate-200 dark:border-vscode-border p-6 sm:p-8 rounded-lg shadow-2xl relative overflow-hidden transition-colors duration-300">
             
             <div id="mainContentArea">
                 <div class="text-center mb-6">
-                    <div class="inline-flex p-3 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 text-xl">
-                        <div class="icon-box"><img src="icon.png" width="60" height="60" alt="Eagle IDE"></div>
+                    <div class="inline-flex p-3 rounded-lg bg-indigo-50 dark:bg-vscode-sidebar border border-slate-200 dark:border-vscode-border mb-3">
+                        <img src="icon.png" width="48" height="48" alt="Eagle IDE" class="object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <i class="fa-solid fa-terminal text-2xl text-vscode-accent hidden"></i>
                     </div>
-                    <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100" data-i18n="mainTitle">تفعيل رخصة البرنامج</h1>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-1" data-i18n="mainSubtitle">اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري</p>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-vscode-textMain" data-i18n="mainTitle">تفعيل رخصة البرنامج</h1>
+                    <p class="text-xs text-slate-600 dark:text-vscode-textDim mt-1" data-i18n="mainSubtitle">اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري</p>
                 </div>
 
-                <!-- Secure Masked Device ID -->
-                <div class="mb-6 p-3.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/60 rounded-xl flex items-center justify-between transition-colors duration-300">
+                <!-- Secure Device ID Display Box -->
+                <div class="mb-6 p-3 bg-slate-50 dark:bg-vscode-sidebar border border-slate-200 dark:border-vscode-border rounded-md flex items-center justify-between">
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider text-slate-500 block font-semibold" data-i18n="deviceIdLabel">معرف الجهاز الآمن (Secure Device ID)</span>
-                        <span id="deviceIdDisplay" class="font-mono text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 font-bold">جاري التحقق...</span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-vscode-textDim block" data-i18n="deviceIdLabel">معرف الجهاز الآمن (Secure Device ID)</span>
+                        <span id="deviceIdDisplay" class="font-code text-xs sm:text-sm text-vscode-accent font-semibold tracking-wide">جاري التحقق...</span>
                     </div>
-                    <div class="text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-1 font-semibold">
-                        <i class="fa-solid fa-check-circle"></i> <span data-i18n="securedBadge">محمي</span>
+                    <div class="text-vscode-success text-xs flex items-center gap-1.5 font-semibold bg-emerald-500/10 px-2 py-1 rounded border border-vscode-success/20">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span data-i18n="securedBadge">محمي</span>
                     </div>
                 </div>
 
-                <!-- Tabs -->
-                <div class="grid grid-cols-3 gap-2 mb-6 p-1 bg-slate-100 dark:bg-slate-950/40 rounded-xl border border-slate-200 dark:border-slate-800/40 transition-colors duration-300">
-                    <button onclick="switchTab('cards')" id="tab-cards" class="py-2.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white flex items-center justify-center gap-1.5 shadow-md">
+                <!-- Modern VS Code Styled Tabs -->
+                <div class="grid grid-cols-3 gap-1 mb-6 p-1 bg-slate-100 dark:bg-vscode-sidebar rounded border border-slate-200 dark:border-vscode-border">
+                    <button onclick="switchTab('cards')" id="tab-cards" class="py-2 rounded text-xs font-bold transition bg-vscode-accent text-white flex items-center justify-center gap-2 shadow">
                         <i class="fa-solid fa-credit-card"></i> <span data-i18n="tabCard">البطاقات</span>
                     </button>
-                    <button onclick="switchTab('instapay')" id="tab-instapay" class="py-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5">
+                    <button onclick="switchTab('instapay')" id="tab-instapay" class="py-2 rounded text-xs font-semibold transition text-slate-600 dark:text-vscode-textDim hover:text-slate-900 dark:hover:text-vscode-textMain flex items-center justify-center gap-2">
                         <i class="fa-solid fa-bolt"></i> <span data-i18n="tabInstapay">انستا باي</span>
                     </button>
-                    <button onclick="switchTab('wallet')" id="tab-wallet" class="py-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5">
+                    <button onclick="switchTab('wallet')" id="tab-wallet" class="py-2 rounded text-xs font-semibold transition text-slate-600 dark:text-vscode-textDim hover:text-slate-900 dark:hover:text-vscode-textMain flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wallet"></i> <span data-i18n="tabWallet">المحافظ</span>
                     </button>
                 </div>
 
-                <!-- Panes -->
+                <!-- Panes Container -->
                 <div class="space-y-4">
                     <!-- Cards Pane -->
                     <div id="pane-cards" class="space-y-4">
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl flex items-center justify-between transition-colors duration-300">
+                        <div class="p-4 bg-slate-50 dark:bg-vscode-sidebar border border-slate-200 dark:border-vscode-border rounded flex items-center justify-between">
                             <div>
-                                <span class="text-sm font-bold block text-slate-800 dark:text-slate-200" data-i18n="licenseDuration">رخصة مدى الحياة (Lifetime)</span>
-                                <span class="text-xs text-slate-600 dark:text-slate-400" data-i18n="licenseDesc">تفعيل دائم على هذا الجهاز مع التحديثات</span>
+                                <span class="text-sm font-bold block text-slate-800 dark:text-vscode-textMain" data-i18n="licenseDuration">رخصة مدى الحياة (Lifetime)</span>
+                                <span class="text-xs text-slate-500 dark:text-vscode-textDim" data-i18n="licenseDesc">تفعيل دائم على هذا الجهاز مع التحديثات</span>
                             </div>
-                            <span class="text-xl font-black text-emerald-600 dark:text-emerald-400">$ 10 / EGP 500</span>
+                            <span class="text-lg font-bold font-code text-vscode-success">$ 10 / EGP 500</span>
                         </div>
                         
-                        <div class="p-3.5 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-xl text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
-                            <p class="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
+                        <div class="p-3 bg-vscode-accent/10 border border-vscode-accent/30 rounded text-xs text-slate-600 dark:text-vscode-textMain space-y-1">
+                            <p class="font-bold text-vscode-accent flex items-center gap-1.5">
                                 <i class="fa-solid fa-circle-info"></i> <span data-i18n="cardInfoTitle">كيف يتم الدفع بالبطاقة؟</span>
                             </p>
-                            <p data-i18n="cardInfoDesc">اضغط على زر الدفع أدناه للانتقال إلى بوابة الدفع الآمنة (Visa / MasterCard). بمجرد إتمام الدفع، سيتم تفعيل جهازك تلقائياً فوراً.</p>
+                            <p data-i18n="cardInfoDesc" class="text-slate-500 dark:text-vscode-textDim">اضغط على زر الدفع أدناه للانتقال إلى بوابة الدفع الآمنة (Visa / MasterCard). بمجرد إتمام الدفع، سيتم تفعيل جهازك تلقائياً فوراً.</p>
                         </div>
 
-                        <button onclick="processCardPayment()" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-lock"></i> <span data-i18n="payCardBtn">ادفع بالبطاقة بأمان</span>
+                        <button onclick="processCardPayment()" class="w-full py-3 bg-vscode-accent hover:bg-vscode-accentHover text-white rounded font-semibold text-xs tracking-wide shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-lock text-xs"></i> <span data-i18n="payCardBtn">ادفع بالبطاقة بأمان</span>
                         </button>
                     </div>
 
                     <!-- InstaPay Pane -->
                     <div id="pane-instapay" class="hidden space-y-4">
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-center space-y-2 transition-colors duration-300">
-                            <span class="text-xs text-slate-600 dark:text-slate-400 block" data-i18n="instapayInstruction">حول المبلغ عبر InstaPay إلى العنوان التالي:</span>
-                            <div class="font-mono text-sm font-bold text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-900 py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-800 select-all shadow-sm">
+                        <div class="p-4 bg-slate-50 dark:bg-vscode-sidebar border border-slate-200 dark:border-vscode-border rounded text-center space-y-2">
+                            <span class="text-xs text-slate-500 dark:text-vscode-textDim block" data-i18n="instapayInstruction">حول المبلغ عبر InstaPay إلى العنوان التالي:</span>
+                            <div class="font-code text-sm font-bold text-vscode-success bg-white dark:bg-vscode-title py-2 px-3 rounded border border-slate-200 dark:border-vscode-border select-all shadow-inner tracking-wider">
                                 progkady161@instapay
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1" data-i18n="refNumberLabel">رقم عملية التحويل (Reference Number):</label>
-                            <input type="text" id="instapayRef" data-i18n-placeholder="instapayPlaceholder" placeholder="أدخل رقم العملية" class="w-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition font-mono shadow-sm">
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-vscode-textDim mb-1.5" data-i18n="refNumberLabel">رقم عملية التحويل (Reference Number):</label>
+                            <input type="text" id="instapayRef" data-i18n-placeholder="instapayPlaceholder" placeholder="أدخل رقم العملية" class="w-full bg-white dark:bg-vscode-title text-slate-900 dark:text-vscode-textMain border border-slate-300 dark:border-vscode-border rounded px-3 py-2 text-xs focus:outline-none focus:border-vscode-accent transition font-code">
                         </div>
-                        <button onclick="submitManualPayment('InstaPay')" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> <span data-i18n="submitOrderBtn">تأكيد إرسال الطلب</span>
+                        <button onclick="submitManualPayment('InstaPay')" class="w-full py-3 bg-vscode-success hover:opacity-90 text-slate-950 rounded font-bold text-xs shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i> <span data-i18n="submitOrderBtn">تأكيد إرسال الطلب</span>
                         </button>
                     </div>
 
                     <!-- Wallets Pane -->
                     <div id="pane-wallet" class="hidden space-y-4">
-                        <div class="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-center space-y-2 transition-colors duration-300">
-                            <span class="text-xs text-slate-600 dark:text-slate-400 block" data-i18n="walletInstruction">حول محفظة الي:</span>
-                            <div class="font-mono text-sm font-bold text-amber-600 dark:text-amber-400 bg-white dark:bg-slate-900 py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-800 select-all shadow-sm">
+                        <div class="p-4 bg-slate-50 dark:bg-vscode-sidebar border border-slate-200 dark:border-vscode-border rounded text-center space-y-2">
+                            <span class="text-xs text-slate-500 dark:text-vscode-textDim block" data-i18n="walletInstruction">حول محفظة الي:</span>
+                            <div class="font-code text-sm font-bold text-vscode-warning bg-white dark:bg-vscode-title py-2 px-3 rounded border border-slate-200 dark:border-vscode-border select-all shadow-inner tracking-wider">
                                 01154073811
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1" data-i18n="walletNumberLabel">رقم هاتفك المحول منه:</label>
-                            <input type="text" id="walletSender" data-i18n-placeholder="walletPlaceholder" placeholder="010XXXXXXXX" class="w-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition font-mono shadow-sm">
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-vscode-textDim mb-1.5" data-i18n="walletNumberLabel">رقم هاتفك المحول منه:</label>
+                            <input type="text" id="walletSender" data-i18n-placeholder="walletPlaceholder" placeholder="010XXXXXXXX" class="w-full bg-white dark:bg-vscode-title text-slate-900 dark:text-vscode-textMain border border-slate-300 dark:border-vscode-border rounded px-3 py-2 text-xs focus:outline-none focus:border-vscode-accent transition font-code">
                         </div>
-                        <button onclick="submitManualPayment('Wallet')" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> <span data-i18n="submitOrderBtn">تأكيد إرسال الطلب</span>
+                        <button onclick="submitManualPayment('Wallet')" class="w-full py-3 bg-vscode-warning hover:opacity-90 text-slate-950 rounded font-bold text-xs shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i> <span data-i18n="submitOrderBtn">تأكيد إرسال الطلب</span>
                         </button>
                     </div>
                 </div>
@@ -136,7 +160,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="text-center py-4 text-xs text-slate-500 dark:text-slate-500">
+    <footer class="text-center py-4 text-xs font-code text-slate-500 dark:text-vscode-textDim border-t border-transparent dark:border-vscode-title">
         &copy; 2026 Kadysoft Ltd. <span data-i18n="rights">All rights reserved.</span>
     </footer>
 
@@ -150,8 +174,8 @@
 
         const translations = {
             ar: {
-                pageTitle: "Eagle IDE Full Activation",
-                secureGateway: "Eagle IDE From Kadysoft Ltd.",
+                pageTitle: "Eagle IDE — License Manager",
+                secureGateway: "Eagle IDE Authorization Server",
                 mainTitle: "تفعيل رخصة البرنامج",
                 mainSubtitle: "اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري",
                 deviceIdLabel: "معرف الجهاز الآمن (Secure Device ID)",
@@ -173,37 +197,37 @@
                 submitOrderBtn: "تأكيد إرسال الطلب",
                 rights: "جميع الحقوق محفوظة.",
                 waitingTitle: "جاري مراجعة وتأكيد الطلب",
-                waitingDesc: "تم إرسال طلبك بنجاح! يتم الآن التحقق من عملية الدفع ومراجعتها يدوياً. سيتم فتح البرنامج تلقائياً فور الموافقة عليه.",
-                successTitle: "تم تفعيل الرخصة بنجاح! 🎉",
-                successDesc: "تمت الموافقة على طلبك بنجاح. يمكنك الآن إغلاق هذه الصفحة والعودة إلى البرنامج."
+                waitingDesc: "تم إرسال طلبك بنجاح! يتم الآن التحقق من عملية الدفع ومراجعتها. سيتم تفعيل البرنامج تلقائياً فور الموافقة عليه.",
+                successTitle: "تم تفعيل الرخصة بنجاح",
+                successDesc: "تمت الموافقة على رخصتك وتحديث سيرفر التفعيل. يمكنك الآن إغلاق هذه الصفحة والعودة لمحرر الكود."
             },
             en: {
-                pageTitle: "Eagle IDE Full Activation",
-                secureGateway: "Eagle IDE From Kadysoft Ltd.",
-                mainTitle: "Activate Your License",
-                mainSubtitle: "Choose your preferred payment method for instant activation",
-                deviceIdLabel: "Secure Device ID",
-                securedBadge: "Protected",
+                pageTitle: "Eagle IDE — License Manager",
+                secureGateway: "Eagle IDE Authorization Server",
+                mainTitle: "Activate Your Workstation License",
+                mainSubtitle: "Select your preferred payment method to complete instant device authorization",
+                deviceIdLabel: "HARDWARE FINGERPRINT IDENTIFIER",
+                securedBadge: "PROTECTED",
                 tabCard: "Cards",
                 tabInstapay: "InstaPay",
                 tabWallet: "Wallets",
-                licenseDuration: "Lifetime License",
-                licenseDesc: "Permanent activation for this device with updates",
-                cardInfoTitle: "How does card payment work?",
-                cardInfoDesc: "Click the payment button below to redirect to the secure gateway (Visa / MasterCard). Once paid, your device will activate automatically.",
+                licenseDuration: "Lifetime Workstation License",
+                licenseDesc: "Permanent device activation with updates included",
+                cardInfoTitle: "How card activation works",
+                cardInfoDesc: "Click below to dispatch to our encrypted payment gateway (Visa / MasterCard). Authorization completes instantly after settlement.",
                 payCardBtn: "Pay Securely with Card",
-                instapayInstruction: "Transfer the amount via InstaPay to:",
-                refNumberLabel: "Transaction Reference Number:",
-                instapayPlaceholder: "Enter reference number",
-                walletInstruction: "Transfer via mobile wallet:",
-                walletNumberLabel: "Your Sender Mobile Number:",
+                instapayInstruction: "Dispatch transfer via InstaPay to the following address:",
+                refNumberLabel: "Transaction Reference Identifier:",
+                instapayPlaceholder: "Enter reference code",
+                walletInstruction: "Dispatch transfer via Mobile Wallet to:",
+                walletNumberLabel: "Sender Mobile Identifier:",
                 walletPlaceholder: "010XXXXXXXX",
-                submitOrderBtn: "Submit Order Confirmation",
+                submitOrderBtn: "Confirm Order Dispatch",
                 rights: "All rights reserved.",
-                waitingTitle: "Awaiting Order Approval",
-                waitingDesc: "Your order has been submitted! We are verifying your payment. The software will unlock automatically once approved.",
-                successTitle: "License Activated Successfully! 🎉",
-                successDesc: "Your request has been approved. You can now close this page and return to the software."
+                waitingTitle: "Listening for Server Verification",
+                waitingDesc: "Order received successfully. Verification in progress. Software workstation will auto-unlock upon confirmation.",
+                successTitle: "Device Licensed Successfully",
+                successDesc: "Authorization callback completed. You may now close this browser tab and resume using your IDE."
             }
         };
 
@@ -238,22 +262,22 @@
             html.classList.toggle('dark');
             const isDark = html.classList.contains('dark');
             if (isDark) {
-                icon.className = "fa-solid fa-sun text-amber-400";
+                icon.className = "fa-solid fa-sun text-vscode-warning";
             } else {
-                icon.className = "fa-solid fa-moon text-indigo-600";
+                icon.className = "fa-solid fa-moon text-vscode-accent";
             }
         }
 
         function switchTab(tab) {
             ['cards', 'instapay', 'wallet'].forEach(t => {
                 document.getElementById(`pane-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).className = "py-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5";
+                document.getElementById(`tab-${t}`).className = "py-2 rounded text-xs font-semibold transition text-slate-600 dark:text-vscode-textDim hover:text-slate-900 dark:hover:text-vscode-textMain flex items-center justify-center gap-2";
             });
             document.getElementById(`pane-${tab}`).classList.remove('hidden');
-            document.getElementById(`tab-${tab}`).className = "py-2.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white flex items-center justify-center gap-1.5 shadow-md";
+            document.getElementById(`tab-${tab}`).className = "py-2 rounded text-xs font-bold transition bg-vscode-accent text-white flex items-center justify-center gap-2 shadow";
         }
 
-        // ========== Device ID ==========
+        // ========== Device ID Processing ==========
         const urlParams = new URLSearchParams(window.location.search);
         const rawDeviceId = urlParams.get('device_id') || 'DEV-SAMPLE-9988';
         const maskedDeviceId = rawDeviceId.length > 8 
@@ -261,7 +285,7 @@
             : rawDeviceId;
         document.getElementById('deviceIdDisplay').innerText = maskedDeviceId;
 
-        // ========== دالة فحص حالة الترخيص في قاعدة البيانات ==========
+        // ========== Supabase License Checker ==========
         async function checkLicenseStatus() {
             try {
                 const response = await fetch(
@@ -281,11 +305,9 @@
                     const status = data[0].status;
                     
                     if (status === 'active' || status === 'approved') {
-                        // إذا وافق الأدمن، توقف عن الفحص واعرض شاشة النجاح
                         clearInterval(statusCheckInterval);
                         showSuccessScreen();
                     } else if (status === 'pending' || status === 'paid') {
-                        // عرض شاشة الانتظار إذا لم تكن ظاهرة
                         if (!document.getElementById('waitingIndicator')) {
                             showWaitingScreen();
                         }
@@ -296,14 +318,12 @@
             }
         }
 
-        // فحص أولي عند تحميل الصفحة
         window.addEventListener('DOMContentLoaded', async () => {
             await checkLicenseStatus();
-            // بدء التحقق التلقائي كل 5 ثوانٍ لمعرفة هل وافق المستخدم أم لا
             statusCheckInterval = setInterval(checkLicenseStatus, 5000);
         });
 
-        // ========== الدفع بالبطاقة ==========
+        // ========== Payment Processing ==========
         async function processCardPayment() {
             await registerOrderOnServer('Card', 'Paymob');
             const paymobLink = "https://paymob.link/9ScTA";
@@ -311,7 +331,6 @@
             window.location.href = finalUrl;
         }
 
-        // ========== الدفع اليدوي (InstaPay / Wallet) ==========
         function submitManualPayment(method) {
             let detail = method === 'InstaPay'
                 ? document.getElementById('instapayRef').value.trim()
@@ -325,19 +344,17 @@
             registerOrderOnServer(method, detail);
         }
 
-        // ========== إرسال الطلب إلى Supabase مع معالجة Upsert لمنع التكرار ==========
         async function registerOrderOnServer(method, detail = '') {
             showWaitingScreen();
 
             try {
-                // نستخدم UPSERT أو نبحث أولاً لتحديث السجل بدلاً من إنشاء صف جديد كل مرة لتفادي مشاكل الـ Unique constraints
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/licenses`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'apikey': SUPABASE_KEY,
                         'Authorization': `Bearer ${SUPABASE_KEY}`,
-                        'Prefer': 'resolution=merge-duplicates,return=minimal' // لتحديث السجل لو device_id موجود مسبقاً
+                        'Prefer': 'resolution=merge-duplicates,return=minimal'
                     },
                     body: JSON.stringify({
                         device_id: rawDeviceId,
@@ -357,43 +374,43 @@
             }
         }
 
-        // ========== شاشة الانتظار ==========
+        // ========== VS Code Styled Waiting Screen ==========
         function showWaitingScreen() {
             const t = translations[currentLang];
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
-                <div id="waitingIndicator" class="text-center py-8 space-y-4">
-                    <div class="w-16 h-16 bg-amber-500/10 text-amber-500 dark:text-amber-400 rounded-full flex items-center justify-center mx-auto text-3xl animate-bounce">
-                        <i class="fa-solid fa-hourglass-half"></i>
+                <div id="waitingIndicator" class="text-center py-6 space-y-4">
+                    <div class="w-14 h-14 bg-vscode-warning/10 border border-vscode-warning/30 text-vscode-warning rounded-full flex items-center justify-center mx-auto text-2xl animate-pulse">
+                        <i class="fa-solid fa-hourglass-start"></i>
                     </div>
-                    <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">${t.waitingTitle}</h2>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm mx-auto">${t.waitingDesc}</p>
-                    <div class="pt-4">
-                        <span class="inline-block px-4 py-2 bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl font-mono text-xs text-amber-600 dark:text-amber-400 font-semibold animate-pulse">
-                            Status: Pending Approval...
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-vscode-textMain">${t.waitingTitle}</h2>
+                    <p class="text-xs text-slate-500 dark:text-vscode-textDim leading-relaxed max-w-sm mx-auto">${t.waitingDesc}</p>
+                    <div class="pt-2">
+                        <span class="inline-block px-3 py-1 bg-slate-100 dark:bg-vscode-sidebar border border-slate-200 dark:border-vscode-border rounded font-code text-xs text-vscode-warning font-semibold">
+                            STATUS: PENDING_VERIFICATION
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-500 mt-4">
-                        Device: ${maskedDeviceId}
+                    <p class="text-[11px] font-code text-slate-400 dark:text-vscode-textDim mt-2">
+                        DEVICE_ID: ${maskedDeviceId}
                     </p>
                 </div>
             `;
         }
 
-        // ========== شاشة النجاح عند الموافقة ==========
+        // ========== VS Code Styled Success Screen ==========
         function showSuccessScreen() {
             const t = translations[currentLang];
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
-                <div class="text-center py-8 space-y-4">
-                    <div class="w-16 h-16 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto text-3xl">
-                        <i class="fa-solid fa-check-circle"></i>
+                <div class="text-center py-6 space-y-4">
+                    <div class="w-14 h-14 bg-vscode-success/10 border border-vscode-success/30 text-vscode-success rounded-full flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid fa-check"></i>
                     </div>
-                    <h2 class="text-xl font-bold text-emerald-600 dark:text-emerald-400">${t.successTitle}</h2>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm mx-auto">${t.successDesc}</p>
-                    <div class="pt-4">
-                        <span class="inline-block px-4 py-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                            Status: Active & Licensed
+                    <h2 class="text-lg font-bold text-vscode-success">${t.successTitle}</h2>
+                    <p class="text-xs text-slate-500 dark:text-vscode-textDim leading-relaxed max-w-sm mx-auto">${t.successDesc}</p>
+                    <div class="pt-2">
+                        <span class="inline-block px-3 py-1 bg-vscode-success/10 border border-vscode-success/30 rounded font-code text-xs text-vscode-success font-bold">
+                            STATUS: AUTHORIZED & LICENSED
                         </span>
                     </div>
                 </div>
