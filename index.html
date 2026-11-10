@@ -41,12 +41,9 @@
             
             <div id="mainContentArea">
                 <div class="text-center mb-6">
-                   
-
-<div class="inline-flex p-3 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 text-xl">
-                       <div class="icon-box"><img src="icon.png" width="60" height="60"></div>
+                    <div class="inline-flex p-3 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    
                     <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100" data-i18n="mainTitle">تفعيل رخصة البرنامج</h1>
                     <p class="text-xs text-slate-600 dark:text-slate-400 mt-1" data-i18n="mainSubtitle">اختر طريقة الدفع المناسبة لك لإتمام التفعيل الفوري</p>
                 </div>
@@ -84,7 +81,7 @@
                                 <span class="text-sm font-bold block text-slate-800 dark:text-slate-200" data-i18n="licenseDuration">رخصة مدى الحياة (Lifetime)</span>
                                 <span class="text-xs text-slate-600 dark:text-slate-400" data-i18n="licenseDesc">تفعيل دائم على هذا الجهاز مع التحديثات</span>
                             </div>
-                            <span class="text-xl font-black text-emerald-600 dark:text-emerald-400">$ 10/EGP 500</span>
+                            <span class="text-xl font-black text-emerald-600 dark:text-emerald-400">$29.99</span>
                         </div>
                         
                         <div class="p-3.5 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-xl text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
@@ -316,7 +313,7 @@
         }
 
         function showWaitingScreen() {
-            const t = translations[currentLang]; // جلب النصوص باللغة الحالية (عربي أو إنجليزي)
+            const t = translations[currentLang];
             const area = document.getElementById('mainContentArea');
             area.innerHTML = `
                 <div class="text-center py-8 space-y-4">
