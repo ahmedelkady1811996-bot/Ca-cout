@@ -328,15 +328,20 @@
         async function checkLicenseStatus() {
             if (!rawDeviceId) return;
             try {
-                const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/licenses?device_id=eq.${encodeURIComponent(rawDeviceId)}&select=status`,
-                    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
-                );
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_status`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify({ p_device: rawDeviceId })
+                });
                 if (!response.ok) return;
 
                 const data = await response.json();
 
-                if (!data || data.length === 0) {
+                if (!data) {
                     if (currentView !== 'none') {
                         currentView = 'none';
                         showMessageScreen('fa-link-slash', 'bg-vscode-warning/10 border-vscode-warning/30 text-vscode-warning', 'noDeviceTitle', 'noDeviceDesc');
@@ -344,7 +349,7 @@
                     return;
                 }
 
-                const s = String(data[0].status || '').toLowerCase();
+                const s = String(data || '').toLowerCase();
                 let view;
                 if (['active', 'approved', 'paid'].includes(s)) view = 'ok';
                 else if (s === 'blocked' || s === 'revoked') view = 'blocked';
